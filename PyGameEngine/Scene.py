@@ -6,10 +6,15 @@ from pygame.color import THECOLORS
 
 
 class Scene:
-    def __init__(self, game):
+    def __init__(self, game, bg_color):
         self.game = game
         self.background = pygame.Surface(self.game.screen.get_rect()[2:])
-        self.background.fill(THECOLORS['skyblue'])
+        self.background.fill(bg_color)
+
+        self.objects = []
 
     def update(self):
         self.game.screen.blit(self.background, self.background.get_rect())
+
+        for obj in self.objects:
+            obj.update()

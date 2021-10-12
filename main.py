@@ -11,11 +11,12 @@ class Game:
     """
     Used to switch scenes and control the game.
     """
+
     def __init__(self):
         self.screen = pygame.display.set_mode(WIN_SIZE)
         self.running = True
 
-        self.scene = Scene(self)
+        self.scene = Scene(self, BG_COLOR)
         self.input = Input(self)
 
     def run(self):
