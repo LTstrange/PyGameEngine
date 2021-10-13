@@ -13,6 +13,8 @@ class Game:
     """
 
     def __init__(self):
+        pygame.init()
+
         self.screen = pygame.display.set_mode(WIN_SIZE)
         self.running = True
 
