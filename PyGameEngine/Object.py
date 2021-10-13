@@ -31,6 +31,8 @@ class Button(Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = pos
 
+        
+
     def set_color(self, color):
         self.image.fill(color)
 
