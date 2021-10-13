@@ -4,7 +4,7 @@
 import pygame
 from pygame.sprite import Group
 
-from .Object import Object
+from .Object import Button, Mouse
 
 
 class Scene:
@@ -17,7 +17,11 @@ class Scene:
 
         self.set_layout()
 
+        self.mouse = Mouse()
+
     def update(self):
+        self.mouse.update()
+
         self.group.update()
 
         self.game.screen.blit(self.background, self.background.get_rect())
@@ -25,5 +29,5 @@ class Scene:
         self.group.draw(self.game.screen)
 
     def set_layout(self):
-        Object((10, 10), (255, 128, 128), self.group)
-
+        b = Button((0, 0), (50, 20), 'Click!', self.group)
+        b.set_color((255,255,224))
