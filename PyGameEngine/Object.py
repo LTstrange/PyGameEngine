@@ -64,19 +64,3 @@ class Button(Sprite):
         if self.text:
             img.blit(self.text_img, self.text_img_rect)
         return img
-
-
-class Mouse(Sprite):
-    """
-    Trace Mouse position use Sprite, make mouse click detection much easier.
-    """
-
-    def __init__(self, *groups: AbstractGroup) -> None:
-        super().__init__(*groups)
-
-        self.image = pygame.Surface((1, 1))
-
-        self.rect = self.image.get_rect()
-
-    def update(self):
-        self.rect.center = pygame.mouse.get_pos()
