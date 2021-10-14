@@ -15,8 +15,8 @@ class Scene:
 
         self.set_layout()
 
-    def update(self):
-        self.group.update()
+    def update(self, *args, **kwargs):
+        self.group.update(*args, **kwargs)
 
     def draw(self):
         self.game.screen.blit(self.background, self.background.get_rect())

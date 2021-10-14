@@ -12,6 +12,7 @@ from pygame.color import THECOLORS
 from pygame.sprite import AbstractGroup
 
 from PyGameEngine import *
+from PyGameEngine.Object import TextBar
 
 
 class ColorBlock(Button):
@@ -41,6 +42,8 @@ class ColorScene(Scene):
 
                 ColorBlock((i * 20, j * 20), (20, 20), name, color, self.group)
 
+        TextBar((25 * 2 * 10, 23 * 2 * 10), (60, 30), self.group, text_key='fps', text_color=THECOLORS['white'])
+
 
 class Game:
     """
@@ -56,10 +59,14 @@ class Game:
         self.scene = ColorScene(self, (0, 0, 0))
         self.input = Input(self)
 
+        self.Clock = pygame.time.Clock()
+
     def run(self):
         while self.running:
-            self.scene.update()
+            self.Clock.tick()
             self.input.update()
+            fps = f"fps:{int(self.Clock.get_fps())}"
+            self.scene.update(fps=fps)
 
             self.scene.draw()
             pygame.display.flip()
