@@ -22,23 +22,32 @@ class Object(Sprite):
 
 
 class Button(Sprite):
-    def __init__(self, pos, size, text, color=None, func=None, *groups: AbstractGroup) -> None:
+    def __init__(self, pos, size, color, func, *groups: AbstractGroup, text=None, text_color=None,
+                 font: pygame.font.Font = None) -> None:
         super().__init__(*groups)
         self.pos = pos
         self.size = size
-        self.text = text
         self.color = color
         self.func = func
+        self.text = text
+        self.text_color = text_color
+        self.font = font if font else pygame.font.SysFont(pygame.font.get_default_font(), int(size[1] * 0.8))
 
-        self.image = pygame.Surface(size)
-        self.rect = self.image.get_rect()
+        self._image = pygame.Surface(size)
+        self.rect = self._image.get_rect()
         self.rect.topleft = pos
+
+        if self.text:
+            self.text_img = self.font.render(self.text, True, self.text_color if self.text_color else (0, 0, 0))
+            # default center
+            self.text_img_rect = self.text_img.get_rect()
+            self.text_img_rect.center = self.rect.center
 
         self.set_color(color)
 
     def set_color(self, color):
         self.color = color
-        self.image.fill(color)
+        self._image.fill(color)
 
     def handle_input(self, *args, **kwargs):
         if self.func:
@@ -48,6 +57,13 @@ class Button(Sprite):
 
     def update(self, *args, **kwargs):
         pass
+
+    @property
+    def image(self):
+        img = self._image.copy()
+        if self.text:
+            img.blit(self.text_img, self.text_img_rect)
+        return img
 
 
 class Mouse(Sprite):
