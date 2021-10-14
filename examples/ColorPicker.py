@@ -12,7 +12,6 @@ from pygame.color import THECOLORS
 from pygame.sprite import AbstractGroup
 
 from PyGameEngine import *
-from PyGameEngine.Object import TextBar
 
 
 class ColorBlock(Button):
