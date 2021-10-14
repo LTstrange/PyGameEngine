@@ -39,7 +39,7 @@ class ColorScene(Scene):
                 except IndexError:
                     break
 
-                ColorBlock((i * 10, j * 10), (10, 10), name, color, self.group)
+                ColorBlock((i * 20, j * 20), (20, 20), name, color, self.group)
 
 
 class Game:
@@ -50,7 +50,7 @@ class Game:
     def __init__(self):
         pygame.init()
 
-        self.screen = pygame.display.set_mode((280, 250))
+        self.screen = pygame.display.set_mode((28 * 2 * 10, 25 * 2 * 10))
         self.running = True
 
         self.scene = ColorScene(self, (0, 0, 0))
