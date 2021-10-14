@@ -21,13 +21,11 @@ class Scene:
 
     def update(self):
         self.mouse.update()
-
         self.group.update()
 
+    def draw(self):
         self.game.screen.blit(self.background, self.background.get_rect())
-
         self.group.draw(self.game.screen)
 
     def set_layout(self):
-        b = Button((0, 0), (50, 20), 'Click!', self.group)
-        b.set_color((255,255,224))
+        raise NotImplementedError
