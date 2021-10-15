@@ -2,8 +2,10 @@
 # @Time    : 2021/10/12 10:22
 # @Author  : LTstrange
 
+from re import S
 import pygame
 from pygame.color import THECOLORS
+from pygame.sprite import AbstractGroup
 
 from config import *
 from PyGameEngine import *
@@ -28,7 +30,15 @@ class GameScene(Scene):
         TextBar((0, 0), (60, 30), self.group, text_key='fps')
 
     def set_objects(self):
-        Object((10, 10), THECOLORS['red'], self.group)
+        Character((10, 10), THECOLORS['red'], self.game.input, self.group)
+
+class Character(Object):
+    def __init__(self, size, color, usr_input, *groups: AbstractGroup):
+        super().__init__(size, color, *groups)
+        self.usr_input = usr_input
+    def handle_input(self, *args, **kwargs):
+        self.rect.move_ip(self.usr_input.axis)
+
 
 
 class Game:
@@ -42,8 +52,8 @@ class Game:
         self.screen = pygame.display.set_mode(WIN_SIZE)
         self.running = True
 
-        self.scene = GameScene(self, BG_COLOR)
         self.input = Input(self)
+        self.scene = GameScene(self, BG_COLOR)
 
         self.Clock = pygame.time.Clock()
 
