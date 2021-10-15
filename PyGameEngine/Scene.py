@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/12 9:52
 # @Author  : LTstrange
+import warnings
+
 import pygame
 from pygame.sprite import Group
 
@@ -24,7 +26,7 @@ class Scene:
         self.group.draw(self.game.screen)
 
     def set_layout(self):
-        raise NotImplementedError
+        warnings.warn("Scene.set_layout function NOT implement!")
     
     def set_objects(self):
-        raise NotImplementedError
+        warnings.warn("Scene.set_objects function NOT implement!")
