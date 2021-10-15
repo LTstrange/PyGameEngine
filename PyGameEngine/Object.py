@@ -77,15 +77,14 @@ class TextBar(Sprite):
         super().__init__(*groups)
         self.pos = pos
         self.size = size
-        self.bg_color = bg_color
+        self.bg_color = bg_color if bg_color else (0,0,0,0)
         self.text = None
         self.text_color = text_color if text_color else THECOLORS['black']
         self.font = font if font else pygame.font.SysFont(pygame.font.get_default_font(), int(size[1] * 0.8))
         self.text_key = text_key
 
-        self._image = pygame.Surface(size)
-        if bg_color:
-            self._image.fill(bg_color)
+        self._image = pygame.Surface(size).convert_alpha()
+        self._image.fill(self.bg_color)
         self.rect = self._image.get_rect()
         self.rect.topleft = pos
 

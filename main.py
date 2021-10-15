@@ -17,6 +17,8 @@ class MenuScene(Scene):
         b = Button((0, 0), (200, 50), THECOLORS['yellow'], None, self.group, text='START')
         b.rect.center = (400, 300)
 
+        fps = TextBar((0,0), (60, 30), self.group, text_key='fps')
+
 
 class Game:
     """
@@ -32,10 +34,14 @@ class Game:
         self.scene = MenuScene(self, BG_COLOR)
         self.input = Input(self)
 
+        self.Clock = pygame.time.Clock()
+
     def run(self):
         while self.running:
-            self.scene.update()
+            self.Clock.tick()
             self.input.update()
+            fps = f"fps:{int(self.Clock.get_fps())}"
+            self.scene.update(fps=fps)
 
             self.scene.draw()
             pygame.display.flip()
