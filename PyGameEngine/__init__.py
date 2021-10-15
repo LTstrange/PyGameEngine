@@ -4,5 +4,5 @@
 
 from .Scene import Scene
 from .Input import Input
-from .Object import Button, TextBar
+from .Object import Button, TextBar, Object
 from .Fonts import Fonts

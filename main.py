@@ -17,8 +17,17 @@ class MenuScene(Scene):
         b = Button((0, 0), (200, 50), THECOLORS['yellow'], None, self.group, text='START')
         b.rect.center = (400, 300)
 
-        fps = TextBar((0,0), (60, 30), self.group, text_key='fps')
+        TextBar((0,0), (60, 30), self.group, text_key='fps')
 
+class GameScene(Scene):
+    def __init__(self, game, bg_color):
+        super().__init__(game, bg_color)
+    
+    def set_layout(self):
+        TextBar((0,0), (60, 30), self.group, text_key='fps')
+    
+    def set_objects(self):
+        Object((10, 10), THECOLORS['red'], self.group)
 
 class Game:
     """
@@ -31,7 +40,7 @@ class Game:
         self.screen = pygame.display.set_mode(WIN_SIZE)
         self.running = True
 
-        self.scene = MenuScene(self, BG_COLOR)
+        self.scene = GameScene(self, BG_COLOR)
         self.input = Input(self)
 
         self.Clock = pygame.time.Clock()

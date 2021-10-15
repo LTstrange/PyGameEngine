@@ -14,9 +14,7 @@ class Object(Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, *args, **kwargs):
-        dest = pygame.mouse.get_pos()
-        self.rect.move_ip((dest[0] - self.rect.x, dest[1] - self.rect.y))
-        self.rect.center = self.rect.topleft
+        pass
 
     def handle_input(self, *args, **kwargs):
         pass

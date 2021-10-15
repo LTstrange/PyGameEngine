@@ -14,6 +14,7 @@ class Scene:
         self.group = Group()
 
         self.set_layout()
+        self.set_objects()
 
     def update(self, *args, **kwargs):
         self.group.update(*args, **kwargs)
@@ -23,4 +24,7 @@ class Scene:
         self.group.draw(self.game.screen)
 
     def set_layout(self):
+        raise NotImplementedError
+    
+    def set_objects(self):
         raise NotImplementedError
