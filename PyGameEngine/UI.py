@@ -3,10 +3,10 @@
 # @Author  : LTstrange
 import pygame
 from pygame.color import THECOLORS
-from pygame.sprite import AbstractGroup, Sprite
+from pygame.sprite import AbstractGroup, Sprite, DirtySprite
 
 
-class Button(Sprite):
+class Button(DirtySprite):
     def __init__(self, pos, size, color, func, *groups: AbstractGroup, text=None, text_color=None,
                  font: pygame.font.Font = None) -> None:
         super().__init__(*groups)
@@ -33,12 +33,14 @@ class Button(Sprite):
     def set_color(self, color):
         self.color = color
         self._image.fill(color)
+        self.dirty = 1
 
     def handle_input(self, *args, **kwargs):
         if self.func:
             self.func(*args, **kwargs)
         else:
             print("Being clicked.")
+        self.dirty = 1
 
     def update(self, *args, **kwargs):
         pass
@@ -51,7 +53,7 @@ class Button(Sprite):
         return img
 
 
-class TextBar(Sprite):
+class TextBar(DirtySprite):
     """
     Changeable TextBar. Display dynamic text.
     """
@@ -74,6 +76,7 @@ class TextBar(Sprite):
 
     def set_text(self, text: str):
         self.text = text
+        self.dirty = 1
 
     @property
     def image(self):
@@ -90,3 +93,6 @@ class TextBar(Sprite):
         if self.text_key:
             text = kwargs.get(self.text_key, '')
         self.set_text(text)
+
+    def handle_input(self, *args, **kwargs):
+        pass

@@ -21,6 +21,7 @@ class ColorBlock(Button):
 
     def handle_input(self, *args, **kwargs):
         print(f"{self.name}:{self.color}")
+        self.dirty = 1
 
 
 class ColorScene(Scene):
@@ -41,7 +42,7 @@ class ColorScene(Scene):
 
                 ColorBlock((i * 20, j * 20), (20, 20), name, color, self.group)
 
-        TextBar((25 * 2 * 10, 23 * 2 * 10), (60, 30), self.group, text_key='fps', text_color=THECOLORS['white'])
+        TextBar((24 * 2 * 10, 23 * 2 * 10), (60, 30), self.group, text_key='fps', text_color=THECOLORS['white'])
 
 
 class Game:
@@ -64,11 +65,11 @@ class Game:
         while self.running:
             self.Clock.tick()
             self.input.update()
-            fps = f"fps:{int(self.Clock.get_fps())}"
+            fps = f"fps:{int(self.Clock.get_fps()):>4d}"
             self.scene.update(fps=fps)
 
-            self.scene.draw()
-            pygame.display.flip()
+            rects = self.scene.draw()
+            pygame.display.update(rects)
 
 
 if __name__ == '__main__':

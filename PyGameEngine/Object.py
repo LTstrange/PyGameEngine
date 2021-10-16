@@ -4,10 +4,10 @@
 import pygame
 from pygame.color import THECOLORS
 from pygame.math import Vector2
-from pygame.sprite import Sprite, AbstractGroup
+from pygame.sprite import AbstractGroup, DirtySprite
 
 
-class Object(Sprite):
+class Object(DirtySprite):
     def __init__(self, pos, size, color, *groups: AbstractGroup):
         super().__init__(*groups)
         self.pos = Vector2(pos)
@@ -21,7 +21,7 @@ class Object(Sprite):
         pass
 
     def handle_input(self, *args, **kwargs):
-        pass
+        self.dirty = 1
     
     @property
     def image(self):
@@ -29,6 +29,6 @@ class Object(Sprite):
     
     @property
     def rect(self):
-        self._rect = self.pos
+        self._rect.center = self.pos
         return self._rect
 
