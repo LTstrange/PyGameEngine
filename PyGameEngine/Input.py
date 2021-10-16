@@ -9,7 +9,7 @@ class Input:
     def __init__(self, game):
         self.game = game
         self.mouse = Mouse()
-        self.axis = [0, 0]
+        self.axis = pygame.math.Vector2()
 
     def update(self):
         self.mouse.update()
@@ -23,16 +23,24 @@ class Input:
                         sp.handle_input()
                 
             if event.type == pygame.KEYDOWN:
-                print(event)
                 if event.key in [pygame.K_w, pygame.K_UP]:
-                    self.axis[1] += 1
+                    self.axis.y -= 1
                 if event.key in [pygame.K_s, pygame.K_DOWN]:
-                    self.axis[1] -= 1
+                    self.axis.y += 1
                 if event.key in [pygame.K_a, pygame.K_LEFT]:
-                    self.axis[0] -= 1
+                    self.axis.x -= 1
                 if event.key in [pygame.K_d, pygame.K_RIGHT]:
-                    self.axis[0] += 1
-                
+                    self.axis.x += 1
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_w, pygame.K_UP]:
+                    self.axis.y -= -1
+                if event.key in [pygame.K_s, pygame.K_DOWN]:
+                    self.axis.y += -1
+                if event.key in [pygame.K_a, pygame.K_LEFT]:
+                    self.axis.x -= -1
+                if event.key in [pygame.K_d, pygame.K_RIGHT]:
+                    self.axis.x += -1
+            
 
 
 class Mouse(Sprite):

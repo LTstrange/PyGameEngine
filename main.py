@@ -30,15 +30,18 @@ class GameScene(Scene):
         TextBar((0, 0), (60, 30), self.group, text_key='fps')
 
     def set_objects(self):
-        Character((10, 10), THECOLORS['red'], self.game.input, self.group)
+        Character((200, 200), (10, 10), THECOLORS['red'], self.game, self.group)
+
 
 class Character(Object):
-    def __init__(self, size, color, usr_input, *groups: AbstractGroup):
-        super().__init__(size, color, *groups)
-        self.usr_input = usr_input
-    def handle_input(self, *args, **kwargs):
-        self.rect.move_ip(self.usr_input.axis)
-
+    def __init__(self, pos, size, color, game, *groups: AbstractGroup):
+        super().__init__(pos, size, color, *groups)
+        self.game = game
+        self.velocity = 100
+    def update(self, *args, **kwargs):
+        axis = self.game.input.axis if self.game.input.axis.length() == 0 else self.game.input.axis.normalize()
+        self.pos.xy += axis * self.velocity * self.game.deltatime / 1000
+        print(self.pos)
 
 
 class Game:
@@ -59,7 +62,7 @@ class Game:
 
     def run(self):
         while self.running:
-            self.Clock.tick()
+            self.deltatime = self.Clock.tick()
             self.input.update()
             fps = f"fps:{int(self.Clock.get_fps())}"
             self.scene.update(fps=fps)
