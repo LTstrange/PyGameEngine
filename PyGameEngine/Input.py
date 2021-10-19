@@ -20,8 +20,9 @@ class Input:
                 if event.button == pygame.BUTTON_LEFT:
                     sps = pygame.sprite.spritecollide(self.mouse, self.game.scene.group, dokill=False)
                     for sp in sps:
-                        sp.handle_input()
-                
+                        if hasattr(sp, 'handle_input'):
+                            sp.handle_input()
+
             if event.type == pygame.KEYDOWN:
                 if event.key in [pygame.K_w, pygame.K_UP]:
                     self.axis.y -= 1
@@ -40,7 +41,6 @@ class Input:
                     self.axis.x -= -1
                 if event.key in [pygame.K_d, pygame.K_RIGHT]:
                     self.axis.x += -1
-            
 
 
 class Mouse(Sprite):

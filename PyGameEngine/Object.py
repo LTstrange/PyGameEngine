@@ -22,13 +22,12 @@ class Object(Sprite):
 
     def handle_input(self, *args, **kwargs):
         pass
-    
+
     @property
     def image(self):
         return self._image
-    
+
     @property
     def rect(self):
-        self._rect = self.pos
+        self._rect.center = self.pos
         return self._rect
-

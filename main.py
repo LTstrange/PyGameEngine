@@ -2,7 +2,6 @@
 # @Time    : 2021/10/12 10:22
 # @Author  : LTstrange
 
-from re import S
 import pygame
 from pygame.color import THECOLORS
 from pygame.sprite import AbstractGroup
@@ -16,10 +15,14 @@ class MenuScene(Scene):
         super().__init__(game, bg_color)
 
     def set_layout(self):
-        b = Button((0, 0), (200, 50), THECOLORS['yellow'], None, self.group, text='START')
+
+        b = Button((0, 0), (200, 50), THECOLORS['yellow'], self.checkout_GameScene, self.group, text='START')
         b.rect.center = (400, 300)
 
         TextBar((0, 0), (60, 30), self.group, text_key='fps')
+
+    def checkout_GameScene(self):
+        self.game.scene = GameScene(self.game, BG_COLOR)
 
 
 class GameScene(Scene):
@@ -38,10 +41,10 @@ class Character(Object):
         super().__init__(pos, size, color, *groups)
         self.game = game
         self.velocity = 100
+
     def update(self, *args, **kwargs):
         axis = self.game.input.axis if self.game.input.axis.length() == 0 else self.game.input.axis.normalize()
-        self.pos.xy += axis * self.velocity * self.game.deltatime / 1000
-        print(self.pos)
+        self.pos.xy += axis * self.velocity * self.game.delta_time / 1000
 
 
 class Game:
@@ -54,15 +57,15 @@ class Game:
 
         self.screen = pygame.display.set_mode(WIN_SIZE)
         self.running = True
+        self.Clock = pygame.time.Clock()
+        self.delta_time = 0
 
         self.input = Input(self)
-        self.scene = GameScene(self, BG_COLOR)
-
-        self.Clock = pygame.time.Clock()
+        self.scene = MenuScene(self, BG_COLOR)
 
     def run(self):
         while self.running:
-            self.deltatime = self.Clock.tick()
+            self.delta_time = self.Clock.tick()
             self.input.update()
             fps = f"fps:{int(self.Clock.get_fps())}"
             self.scene.update(fps=fps)
