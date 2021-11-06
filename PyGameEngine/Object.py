@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/12 10:59
 # @Author  : LTstrange
+from typing import Union
+
 import pygame
 from pygame.math import Vector2
 from pygame.sprite import Sprite, AbstractGroup
 
 
 class Object(Sprite):
-    def __init__(self, game, pos, size, color, *groups: AbstractGroup):
-        super().__init__(*groups)
+    def __init__(self, game, pos, size, color, group: Union[AbstractGroup, list]):
+        if group is list:
+            group = group[0]
+        super().__init__(group)
         self.game = game
         self.pos = Vector2(pos)
 

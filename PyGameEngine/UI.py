@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/15 18:26
 # @Author  : LTstrange
+from typing import Union
+
 import pygame
 from pygame.color import THECOLORS
 from pygame.sprite import AbstractGroup, Sprite
 
 
 class Button(Sprite):
-    def __init__(self, pos, size, color, func, *groups: AbstractGroup, text=None, text_color=None,
+    def __init__(self, pos, size, color, func, group: Union[AbstractGroup, list], text=None, text_color=None,
                  font: pygame.font.Font = None) -> None:
-        super().__init__(*groups)
+        if group is list:
+            group = group[0]
+        super().__init__(group)
         self.pos = pos
         self.size = size
         self.color = color
@@ -56,12 +60,14 @@ class TextBar(Sprite):
     Changeable TextBar. Display dynamic text.
     """
 
-    def __init__(self, pos, size, *groups: AbstractGroup, bg_color=None, text_color=None,
+    def __init__(self, pos, size, group: Union[AbstractGroup, list], bg_color=None, text_color=None,
                  font: pygame.font.Font = None, text_key=None):
-        super().__init__(*groups)
+        if group is list:
+            group = group[0]
+        super().__init__(group)
         self.pos = pos
         self.size = size
-        self.bg_color = bg_color if bg_color else (0,0,0,0)
+        self.bg_color = bg_color if bg_color else (0, 0, 0, 0)
         self.text = None
         self.text_color = text_color if text_color else THECOLORS['black']
         self.font = font if font else pygame.font.SysFont(pygame.font.get_default_font(), int(size[1] * 0.8))

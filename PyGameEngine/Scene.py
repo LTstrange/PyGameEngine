@@ -13,17 +13,19 @@ class Scene:
         self.background = pygame.Surface(self.game.screen.get_rect()[2:])
         self.background.fill(bg_color)
 
-        self.group = Group()
+        self.groups = [Group()]
 
         self.set_layout()
         self.set_objects()
 
     def update(self, *args, **kwargs):
-        self.group.update(*args, **kwargs)
+        for group in self.groups:
+            group.update(*args, **kwargs)
 
     def draw(self):
         self.game.screen.blit(self.background, self.background.get_rect())
-        self.group.draw(self.game.screen)
+        for group in self.groups:
+            group.draw(self.game.screen)
 
     def set_layout(self):
         warnings.warn("Scene.set_layout function NOT implement!")

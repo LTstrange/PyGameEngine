@@ -3,7 +3,7 @@
 # @Author  : LTstrange
 import pygame
 from pygame.math import Vector2
-from pygame.sprite import Sprite, AbstractGroup
+from pygame.sprite import Sprite, AbstractGroup, Group
 
 
 class Input:
@@ -21,7 +21,7 @@ class Input:
                 self.game.running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == pygame.BUTTON_LEFT:
-                    sps = pygame.sprite.spritecollide(self.mouse, self.game.scene.group, dokill=False)
+                    sps = pygame.sprite.spritecollide(self.mouse, Group(self.game.scene.groups), dokill=False)
                     for sp in sps:
                         if hasattr(sp, 'handle_input'):
                             sp.handle_input()
