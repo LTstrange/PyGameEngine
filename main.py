@@ -15,7 +15,6 @@ class MenuScene(Scene):
         super().__init__(game, bg_color)
 
     def set_layout(self):
-
         b = Button((0, 0), (200, 50), THECOLORS['yellow'], self.checkout_GameScene, self.group, text='START')
         b.rect.center = (400, 300)
 
@@ -33,13 +32,12 @@ class GameScene(Scene):
         TextBar((0, 0), (60, 30), self.group, text_key='fps')
 
     def set_objects(self):
-        Character((200, 200), (10, 10), THECOLORS['red'], self.game, self.group)
+        Character(self.game, (200, 200), (10, 10), THECOLORS['red'], self.group)
 
 
 class Character(Object):
-    def __init__(self, pos, size, color, game, *groups: AbstractGroup):
-        super().__init__(pos, size, color, *groups)
-        self.game = game
+    def __init__(self, game, pos, size, color, *groups: AbstractGroup):
+        super().__init__(game, pos, size, color, *groups)
         self.velocity = 100
 
     def update(self, *args, **kwargs):

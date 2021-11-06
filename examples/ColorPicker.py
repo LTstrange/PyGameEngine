@@ -39,9 +39,9 @@ class ColorScene(Scene):
                 except IndexError:
                     break
 
-                ColorBlock((i * 20, j * 20), (20, 20), name, color, self.group)
+                ColorBlock((i * 20, j * 20), (20, 20), name, color, self.groups)
 
-        TextBar((25 * 2 * 10, 23 * 2 * 10), (60, 30), self.group, text_key='fps', text_color=THECOLORS['white'])
+        TextBar((25 * 2 * 10, 23 * 2 * 10), (60, 30), self.groups, text_key='fps', text_color=THECOLORS['white'])
 
 
 class Game:

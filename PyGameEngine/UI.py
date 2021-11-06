@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/15 18:26
 # @Author  : LTstrange
+from typing import Union
+
 import pygame
 from pygame.color import THECOLORS
 from pygame.sprite import AbstractGroup, Sprite
@@ -11,7 +13,7 @@ class Button(Sprite):
     Used to trigger a specific function.
     """
 
-    def __init__(self, pos, size, color, func, *groups: AbstractGroup, text=None, text_color=None,
+    def __init__(self, pos, size, color, func, group: Union[AbstractGroup, list], text=None, text_color=None,
                  font: pygame.font.Font = None) -> None:
         """
         Init Button class.
@@ -25,7 +27,9 @@ class Button(Sprite):
         :param text_color: text color
         :param font: text font
         """
-        super().__init__(*groups)
+        if group is list:
+            group = group[0]
+        super().__init__(group)
         self.pos = pos
         self.size = size
         self.color = color
@@ -73,7 +77,7 @@ class TextBar(Sprite):
     Changeable TextBar. Display dynamic text.
     """
 
-    def __init__(self, pos, size, *groups: AbstractGroup, bg_color=None, text_color=None,
+    def __init__(self, pos, size, group: Union[AbstractGroup, list], bg_color=None, text_color=None,
                  font: pygame.font.Font = None, text_key=None):
         """
         Init TextBar class.
@@ -86,7 +90,10 @@ class TextBar(Sprite):
         :param font: the font of the text
         :param text_key: use to grab the dynamic text when use update
         """
-        super().__init__(*groups)
+
+        if group is list:
+            group = group[0]
+        super().__init__(group)
         self.pos = pos
         self.size = size
         self.bg_color = bg_color if bg_color else (0, 0, 0, 0)
