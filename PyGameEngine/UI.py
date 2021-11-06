@@ -61,7 +61,7 @@ class TextBar(Sprite):
     """
 
     def __init__(self, pos, size, group: Union[AbstractGroup, list], bg_color=None, text_color=None,
-                 font: pygame.font.Font = None, text_key=None):
+                 font: pygame.font.Font = None, text_key=None, alias_type=None):
         if group is list:
             group = group[0]
         super().__init__(group)
@@ -76,7 +76,10 @@ class TextBar(Sprite):
         self._image = pygame.Surface(size).convert_alpha()
         self._image.fill(self.bg_color)
         self.rect = self._image.get_rect()
-        self.rect.topleft = pos
+        if alias_type == "center":
+            self.rect.center = pos
+        else:
+            self.rect.topleft = pos
 
     def set_text(self, text: str):
         self.text = text

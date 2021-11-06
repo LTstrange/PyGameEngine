@@ -15,10 +15,11 @@ class MenuScene(Scene):
         super().__init__(game, bg_color)
 
     def set_layout(self):
-        b = Button((0, 0), (200, 50), THECOLORS['yellow'], self.checkout_GameScene, self.group, text='START')
+        b = Button((0, 0), (200, 50), THECOLORS['yellow'], self.checkout_GameScene, self.groups, text='START')
         b.rect.center = (400, 300)
 
-        TextBar((0, 0), (60, 30), self.group, text_key='fps')
+        TextBar((400, 150), (250, 80), self.groups, text_key='title', alias_type='center')
+        TextBar((0, 0), (70, 30), self.groups, text_key='fps')
 
     def checkout_GameScene(self):
         self.game.scene = GameScene(self.game, BG_COLOR)
@@ -29,20 +30,20 @@ class GameScene(Scene):
         super().__init__(game, bg_color)
 
     def set_layout(self):
-        TextBar((0, 0), (60, 30), self.group, text_key='fps')
+        TextBar((0, 0), (60, 30), self.groups, text_key='fps')
 
     def set_objects(self):
-        Character(self.game, (200, 200), (10, 10), THECOLORS['red'], self.group)
+        Character(self.game, (200, 200), (10, 10), THECOLORS['red'], self.groups)
 
 
 class Character(Object):
     def __init__(self, game, pos, size, color, *groups: AbstractGroup):
         super().__init__(game, pos, size, color, *groups)
-        self.velocity = 100
+        self.velocity = 200
 
     def update(self, *args, **kwargs):
         axis = self.game.input.axis if self.game.input.axis.length() == 0 else self.game.input.axis.normalize()
-        self.pos.xy += axis * self.velocity * self.game.delta_time / 1000
+        self.pos.xy += axis * self.velocity * self.game.delta_time
 
 
 class Game:
@@ -63,10 +64,10 @@ class Game:
 
     def run(self):
         while self.running:
-            self.delta_time = self.Clock.tick()
+            self.delta_time = self.Clock.tick() / 1000
             self.input.update()
             fps = f"fps:{int(self.Clock.get_fps())}"
-            self.scene.update(fps=fps)
+            self.scene.update(fps=fps, title='Main Menu')
 
             self.scene.draw()
             pygame.display.flip()

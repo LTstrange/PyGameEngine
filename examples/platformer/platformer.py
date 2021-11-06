@@ -24,7 +24,8 @@ class MenuScene(Scene):
         b = Button((0, 0), (200, 50), THECOLORS['yellow'], self.checkout_GameScene, self.groups, text='START')
         b.rect.center = (400, 300)
 
-        TextBar((0, 0), (60, 30), self.groups, text_key='fps')
+        TextBar((400, 150), (250, 80), self.groups, text_key='title', alias_type='center')
+        TextBar((0, 0), (70, 30), self.groups, text_key='fps')
 
     def checkout_GameScene(self):
         self.game.scene = GameScene(self.game, BG_COLOR)
@@ -141,7 +142,7 @@ class Game:
             self.delta_time = self.Clock.tick() / 1000
             self.input.update()
             fps = f"fps:{int(self.Clock.get_fps())}"
-            self.scene.update(fps=fps)
+            self.scene.update(fps=fps, title='Main Menu')
 
             self.scene.draw()
             pygame.display.flip()
