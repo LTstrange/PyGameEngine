@@ -8,6 +8,9 @@ from pygame.sprite import Sprite, AbstractGroup
 
 
 class Object(Sprite):
+    """
+    Basic class which has position, image, and rect.
+    """
     def __init__(self, pos, size, color, *groups: AbstractGroup):
         super().__init__(*groups)
         self.pos = Vector2(pos)

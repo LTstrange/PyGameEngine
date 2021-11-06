@@ -7,8 +7,24 @@ from pygame.sprite import AbstractGroup, Sprite
 
 
 class Button(Sprite):
+    """
+    Used to trigger a specific function.
+    """
+
     def __init__(self, pos, size, color, func, *groups: AbstractGroup, text=None, text_color=None,
                  font: pygame.font.Font = None) -> None:
+        """
+        Init Button class.
+
+        :param pos: topleft pixel position
+        :param size: width and height
+        :param color: the color of the button
+        :param func: the specific function for button to trigger
+        :param groups: scene's group
+        :param text: text on button
+        :param text_color: text color
+        :param font: text font
+        """
         super().__init__(*groups)
         self.pos = pos
         self.size = size
@@ -18,6 +34,7 @@ class Button(Sprite):
         self.text_color = text_color
         self.font = font if font else pygame.font.SysFont(pygame.font.get_default_font(), int(size[1] * 0.8))
 
+        # Initialize the Surface and its rect for rendering
         self._image = pygame.Surface(size)
         self.rect = self._image.get_rect()
         self.rect.topleft = pos
@@ -58,10 +75,21 @@ class TextBar(Sprite):
 
     def __init__(self, pos, size, *groups: AbstractGroup, bg_color=None, text_color=None,
                  font: pygame.font.Font = None, text_key=None):
+        """
+        Init TextBar class.
+
+        :param pos: topleft pixel position
+        :param size: width and height
+        :param groups: scene's group
+        :param bg_color: the color of the bar's background
+        :param text_color: the color of the text
+        :param font: the font of the text
+        :param text_key: use to grab the dynamic text when use update
+        """
         super().__init__(*groups)
         self.pos = pos
         self.size = size
-        self.bg_color = bg_color if bg_color else (0,0,0,0)
+        self.bg_color = bg_color if bg_color else (0, 0, 0, 0)
         self.text = None
         self.text_color = text_color if text_color else THECOLORS['black']
         self.font = font if font else pygame.font.SysFont(pygame.font.get_default_font(), int(size[1] * 0.8))

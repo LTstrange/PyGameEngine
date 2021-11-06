@@ -8,6 +8,9 @@ from pygame.sprite import Group
 
 
 class Scene:
+    """
+    Used to manage all components in a single scene
+    """
     def __init__(self, game, bg_color):
         self.game = game
         self.background = pygame.Surface(self.game.screen.get_rect()[2:])
@@ -19,6 +22,9 @@ class Scene:
         self.set_objects()
 
     def update(self, *args, **kwargs):
+        """
+        Used to update every components in this scene
+        """
         self.group.update(*args, **kwargs)
 
     def draw(self):
